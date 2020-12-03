@@ -1,0 +1,19 @@
+import bpy
+
+cena=bpy.context.scene
+cena.frame_end=100
+bpy.ops.object.select_by_type(type='MESH')
+bpy.ops.object.delete()
+bpy.ops.mesh.primitive_uv_sphere_add(location=(-7,7,0))
+camera=bpy.data.objects['Camera']
+(X,Y,Z) = camera.location
+locations=[]
+
+for Y in range(-5,5):
+    locations.append((X,Y,1.5*Y+8))
+quadro =0
+for l in locations:
+    cena.frame_set(quadro)
+    camera.location=l
+    camera.keyframe_insert(data_path="location")
+    quadro +=10
