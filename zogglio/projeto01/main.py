@@ -1,14 +1,26 @@
-import cv2
-import numpy as np
 
-imagem=cv2.imread('imagem.jpg')
+WIDHT = 4
+HEIGHT = 2
+PIXEL_SCALE = 80 
 
-altura= imagem.shape[0]
-largura= imagem.shape[1]
+surface = cairo.ImageSurface(cairo.FORMAT_RGB24, WIDHT*PIXEL_SCALE, HEIGHT*PIXEL_SCALE)
 
-q_altura, q_largura =altura/4, largura/4
 
-T= np.float32([[1,0, q_largura], [0,1, q_altura]])
-img_translation = cv2.warpAffine(imagem, T, (largura,altura))
+c = cairo.Context(surface)
+c.scale(PIXEL_SCALE, PIXEL_SCALE)
 
-cv2.imwrite('tranlacao.jpg',img_translation )
+c.rectangle(0,0, WIDHT, HEIGHT)
+c.set_source_rgb(0.3, 1, 0.5)
+c.fill()
+
+c.move_to(1,1)
+c.line_to(0.5,0.5)
+
+c.move_to(2,1)
+c.line_to(0.5, 0.5)
+
+c.set_source_rgb(1, 0, 0)
+c.set_line_width(0.05)
+c.stroke()
+
+surface.write_to_png('line.png')
