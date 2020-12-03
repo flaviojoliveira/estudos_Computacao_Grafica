@@ -1,0 +1,13 @@
+pillow
+
+
+import Image
+from PIL import Image
+
+im = Image.open("facebook-png-fundo-transparente.png")
+
+print(im.size)
+
+im=im.rotate(45, expand=1)
+
+print(im.size)
